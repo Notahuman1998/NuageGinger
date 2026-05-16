@@ -351,7 +351,8 @@
   }
 
   .product-card {
-    border-radius: 4px;
+    /* Changed from 4px to 24px to make the boxes rounder */
+    border-radius: 24px;
     padding: 2.8rem;
     position: relative;
     overflow: hidden;
@@ -438,7 +439,7 @@
     margin-top: 3rem;
     padding: 2rem 2.5rem;
     background: var(--cream);
-    border-radius: 4px;
+    border-radius: 24px; /* Matched the new roundness */
     border: 1px solid var(--border);
     display: flex;
     align-items: center;
@@ -484,41 +485,117 @@
   .benefits-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2px;
-    background: rgba(255,255,255,0.06);
-    border-radius: 4px;
-    overflow: hidden;
+    gap: 1.5rem;
   }
 
   .benefit-item {
-    background: rgba(59, 36, 16, 0.7);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(232, 196, 154, 0.1);
+    border-radius: 16px;
     padding: 2.5rem 2rem;
-    transition: background 0.2s;
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
 
-  .benefit-item:hover { background: rgba(200, 121, 65, 0.12); }
+  .benefit-item::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0; height: 100%;
+    background: linear-gradient(to top, rgba(200, 121, 65, 0.15), transparent);
+    opacity: 0;
+    transition: opacity 0.4s;
+    z-index: 0;
+  }
+
+  .benefit-item:hover, .benefit-item.active {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(232, 196, 154, 0.3);
+    transform: translateY(-4px);
+  }
+
+  .benefit-item:hover::before, .benefit-item.active::before {
+    opacity: 1;
+  }
+
+  .benefit-content {
+    position: relative;
+    z-index: 1;
+  }
 
   .benefit-num {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 3rem;
+    font-size: 3.5rem;
     font-weight: 300;
-    color: rgba(200, 121, 65, 0.35);
+    color: rgba(200, 121, 65, 0.2);
     line-height: 1;
     margin-bottom: 1rem;
+    transition: all 0.4s ease;
+  }
+
+  .benefit-item:hover .benefit-num, .benefit-item.active .benefit-num {
+    color: rgba(200, 121, 65, 0.4);
+    transform: scale(0.9) translateX(-5%);
   }
 
   .benefit-title {
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.3rem;
     color: var(--ginger-light);
-    margin-bottom: 0.7rem;
+    margin-bottom: 0;
     font-weight: 400;
+    transition: transform 0.4s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .benefit-title::after {
+    content: '+';
+    font-family: 'Jost', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: rgba(232, 196, 154, 0.5);
+    transition: transform 0.4s;
+  }
+
+  .benefit-item:hover .benefit-title::after, .benefit-item.active .benefit-title::after {
+    transform: rotate(45deg);
+    color: var(--ginger-light);
+  }
+
+  .benefit-desc-wrap {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .benefit-item:hover .benefit-desc-wrap, .benefit-item.active .benefit-desc-wrap {
+    grid-template-rows: 1fr;
+  }
+
+  .benefit-desc-inner {
+    overflow: hidden;
   }
 
   .benefit-desc {
     font-size: 0.88rem;
-    color: rgba(250, 246, 239, 0.6);
+    color: rgba(250, 246, 239, 0.7);
     line-height: 1.7;
+    padding-top: 0;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .benefit-item:hover .benefit-desc, .benefit-item.active .benefit-desc {
+    padding-top: 1rem;
+    opacity: 1;
+    transform: translateY(0);
   }
 
   /* ── FOR WHOM ── */
@@ -534,7 +611,7 @@
   .audience-card {
     background: var(--ivory);
     border: 1px solid var(--border);
-    border-radius: 4px;
+    border-radius: 16px; /* Rounder corners */
     padding: 2rem 2.2rem;
     display: flex;
     gap: 1.5rem;
@@ -596,7 +673,7 @@
   .market-stat {
     background: var(--ginger-pale);
     border: 1px solid rgba(200, 121, 65, 0.18);
-    border-radius: 4px;
+    border-radius: 16px; /* Rounder corners */
     padding: 1.4rem 1.5rem;
   }
 
@@ -757,6 +834,81 @@
     transform: translateY(0);
   }
 
+  /* ── WOW BREAK ── */
+  .wow-break {
+    background: var(--brown-deep);
+    color: var(--ginger-pale);
+    padding: 12rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .wow-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1.15;
+    font-weight: 300;
+    opacity: 0;
+    transform: scale(0.95) translateY(40px);
+    transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .wow-text em { color: var(--ginger); font-style: italic; }
+  .reveal.visible .wow-text {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+
+  /* ── ABOUT PAGE ── */
+  #about-founder {
+    padding-top: 10rem;
+    padding-bottom: 7rem;
+    min-height: 80vh;
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  .about-image-placeholder {
+    background: var(--ginger-pale);
+    border-radius: 24px;
+    height: 600px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .about-content p {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+  }
+  .about-signature {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    color: var(--ginger);
+    margin-top: 2rem;
+    font-style: italic;
+  }
+
+  /* Image styling for the founder photo */
+  .about-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ── ROUTING STYLES ── */
+  .page-home #about-founder { display: none; }
+  .page-about #hero,
+  .page-about #story,
+  .page-about #products,
+  .page-about #wow-break,
+  .page-about #benefits,
+  .page-about #audience,
+  .page-about #investors { display: none; }
+
   /* ── MOBILE ── */
   @media (max-width: 768px) {
     nav { padding: 1.2rem 1.5rem; }
@@ -768,15 +920,15 @@
   }
 </style>
 </head>
-<body>
+<body class="page-home">
 
 <!-- NAV -->
 <nav>
-  <a href="#hero" class="nav-logo">Nuage <span>Ginger</span></a>
+  <a href="#home" class="nav-logo">Nuage <span>Ginger</span></a>
   <ul class="nav-links">
-    <li><a href="#story">Story</a></li>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About May</a></li>
     <li><a href="#products">Products</a></li>
-    <li><a href="#benefits">Benefits</a></li>
     <li><a href="#investors">Investors</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -786,7 +938,7 @@
 <section id="hero">
   <div class="hero-bg"></div>
   <div class="hero-content">
-    <div class="hero-badge">Launching in Finland · 2025</div>
+    <div class="hero-badge">Launching in Finland · 2026</div>
 
     <!-- Logo Mark SVG -->
     <div class="hero-logo-mark">
@@ -863,6 +1015,13 @@
   </div>
 </section>
 
+<!-- WOW BREAK -->
+<section id="wow-break" class="wow-break">
+  <div class="wow-content reveal">
+    <h2 class="wow-text">Warming the Nordic winter.<br><em>One root at a time.</em></h2>
+  </div>
+</section>
+
 <!-- PRODUCTS -->
 <section id="products">
   <div class="container">
@@ -927,35 +1086,71 @@
     </div>
 
     <div class="benefits-grid reveal">
-      <div class="benefit-item">
-        <div class="benefit-num">01</div>
-        <h4 class="benefit-title">Digestive Wellness</h4>
-        <p class="benefit-desc">Ginger is widely recognised for supporting digestive comfort, reducing bloating, and easing nausea — including during pregnancy and travel.</p>
+      <div class="benefit-item" onclick="this.classList.toggle('active')">
+        <div class="benefit-content">
+          <div class="benefit-num">01</div>
+          <h4 class="benefit-title">Digestive Wellness</h4>
+          <div class="benefit-desc-wrap">
+            <div class="benefit-desc-inner">
+              <p class="benefit-desc">Ginger is widely recognised for supporting digestive comfort, reducing bloating, and easing nausea — including during pregnancy and travel.</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="benefit-item">
-        <div class="benefit-num">02</div>
-        <h4 class="benefit-title">Anti-Inflammatory</h4>
-        <p class="benefit-desc">Gingerols and shogaols — the active compounds in ginger — have demonstrated natural anti-inflammatory properties, supporting joint and muscle health.</p>
+      <div class="benefit-item" onclick="this.classList.toggle('active')">
+        <div class="benefit-content">
+          <div class="benefit-num">02</div>
+          <h4 class="benefit-title">Anti-Inflammatory</h4>
+          <div class="benefit-desc-wrap">
+            <div class="benefit-desc-inner">
+              <p class="benefit-desc">Gingerols and shogaols — the active compounds in ginger — have demonstrated natural anti-inflammatory properties, supporting joint and muscle health.</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="benefit-item">
-        <div class="benefit-num">03</div>
-        <h4 class="benefit-title">Immune Support</h4>
-        <p class="benefit-desc">Rich in antioxidants, ginger is a traditional winter wellness staple — especially valued in Nordic climates where immunity support is a seasonal priority.</p>
+      <div class="benefit-item" onclick="this.classList.toggle('active')">
+        <div class="benefit-content">
+          <div class="benefit-num">03</div>
+          <h4 class="benefit-title">Immune Support</h4>
+          <div class="benefit-desc-wrap">
+            <div class="benefit-desc-inner">
+              <p class="benefit-desc">Rich in antioxidants, ginger is a traditional winter wellness staple — especially valued in Nordic climates where immunity support is a seasonal priority.</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="benefit-item">
-        <div class="benefit-num">04</div>
-        <h4 class="benefit-title">Natural Energy</h4>
-        <p class="benefit-desc">A small piece of crystallized ginger provides a clean, natural energy lift — a smart snack alternative to sugar-laden office treats.</p>
+      <div class="benefit-item" onclick="this.classList.toggle('active')">
+        <div class="benefit-content">
+          <div class="benefit-num">04</div>
+          <h4 class="benefit-title">Natural Energy</h4>
+          <div class="benefit-desc-wrap">
+            <div class="benefit-desc-inner">
+              <p class="benefit-desc">A small piece of crystallized ginger provides a clean, natural energy lift — a smart snack alternative to sugar-laden office treats.</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="benefit-item">
-        <div class="benefit-num">05</div>
-        <h4 class="benefit-title">Premium Gifting</h4>
-        <p class="benefit-desc">Beautifully packaged, Nuage Ginger is designed to be gifted — for colleagues, loved ones, or as a thoughtful corporate wellness gesture.</p>
+      <div class="benefit-item" onclick="this.classList.toggle('active')">
+        <div class="benefit-content">
+          <div class="benefit-num">05</div>
+          <h4 class="benefit-title">Premium Gifting</h4>
+          <div class="benefit-desc-wrap">
+            <div class="benefit-desc-inner">
+              <p class="benefit-desc">Beautifully packaged, Nuage Ginger is designed to be gifted — for colleagues, loved ones, or as a thoughtful corporate wellness gesture.</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="benefit-item">
-        <div class="benefit-num">06</div>
-        <h4 class="benefit-title">Mindful Snacking</h4>
-        <p class="benefit-desc">Each piece is portion-controlled, intentional, and satisfying — a mindful alternative for health-conscious consumers replacing processed snacks.</p>
+      <div class="benefit-item" onclick="this.classList.toggle('active')">
+        <div class="benefit-content">
+          <div class="benefit-num">06</div>
+          <h4 class="benefit-title">Mindful Snacking</h4>
+          <div class="benefit-desc-wrap">
+            <div class="benefit-desc-inner">
+              <p class="benefit-desc">Each piece is portion-controlled, intentional, and satisfying — a mindful alternative for health-conscious consumers replacing processed snacks.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1033,7 +1228,8 @@
         <div class="divider"></div>
         <p>The functional food and premium snack market in the Nordics is expanding rapidly. Finnish consumers are among Europe's most health-literate, with strong purchasing power and an appetite for authentic, ethically sourced products.</p>
         <p>Nuage Ginger enters this space as the first premium, Asian-origin crystallized ginger brand positioned specifically for the Finnish market — combining a compelling heritage story with clear functional benefits.</p>
-        <p>We are currently seeking early-stage partners and investors to support our launch phase, supply chain development, and retail distribution strategy.</p>
+        <p><strong>Our Target Market:</strong> We are launching in major Finnish retail chains such as <strong>K-Market and Prisma</strong>, alongside premium gift shops and boutiques. This dual approach ensures high visibility while maintaining our premium wellness positioning.</p>
+        <p><strong>The Ask:</strong> We are currently seeking strategic investors who can provide not just capital, but the network and retail expertise to help us reach these markets and scale as rapidly as possible.</p>
 
         <div class="market-stats">
           <div class="market-stat">
@@ -1049,7 +1245,7 @@
             <div class="market-stat-label">Finnish consumers, highly health-literate</div>
           </div>
           <div class="market-stat">
-            <div class="market-stat-num">2026</div>
+            <div class="market-stat-num">2028+</div>
             <div class="market-stat-label">Target for Nordic expansion beyond Finland</div>
           </div>
         </div>
@@ -1061,35 +1257,56 @@
         <div class="roadmap-item">
           <div class="roadmap-dot active">1</div>
           <div class="roadmap-body">
-            <p class="roadmap-year">2025 — Now</p>
-            <p class="roadmap-title">Finland Launch</p>
-            <p class="roadmap-desc">Launch Original &amp; Light variants. Establish premium retail and online presence in Finland.</p>
+            <p class="roadmap-year">January 2026</p>
+            <p class="roadmap-title">Brand & Recipe Development</p>
+            <p class="roadmap-desc">Finalising the Vietnamese traditional recipe adapted for Nordic preferences and establishing brand identity.</p>
           </div>
         </div>
         <div class="roadmap-item">
           <div class="roadmap-dot">2</div>
           <div class="roadmap-body">
-            <p class="roadmap-year">2025–2026</p>
-            <p class="roadmap-title">Product Line Expansion</p>
-            <p class="roadmap-desc">Introduce new flavour variants, seasonal gifting editions, and corporate wellness formats.</p>
+            <p class="roadmap-year">September 2026</p>
+            <p class="roadmap-title">Official Product Launch</p>
+            <p class="roadmap-desc">Launch of the finished Nuage Ginger products complete with premium packaging in the Finnish market.</p>
           </div>
         </div>
         <div class="roadmap-item">
           <div class="roadmap-dot">3</div>
           <div class="roadmap-body">
-            <p class="roadmap-year">2026</p>
-            <p class="roadmap-title">Nordic Expansion</p>
-            <p class="roadmap-desc">Enter Sweden, Norway, and Denmark markets, leveraging Finland launch learnings and brand equity.</p>
+            <p class="roadmap-year">2027</p>
+            <p class="roadmap-title">Product Line Expansion</p>
+            <p class="roadmap-desc">Introduction of new ginger-based product variants and additional flavours to cater to a wider audience.</p>
           </div>
         </div>
         <div class="roadmap-item">
           <div class="roadmap-dot">4</div>
           <div class="roadmap-body">
-            <p class="roadmap-year">2027+</p>
-            <p class="roadmap-title">European Premium</p>
-            <p class="roadmap-desc">Expand into broader European premium health food channels and explore B2B wellness partnerships.</p>
+            <p class="roadmap-year">2028+</p>
+            <p class="roadmap-title">Nordic Expansion</p>
+            <p class="roadmap-desc">Scale operations to reach health-conscious consumers across Sweden, Norway, and Denmark.</p>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT FOUNDER -->
+<section id="about-founder">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-content reveal">
+        <p class="section-label">The Founder</p>
+        <h2 class="section-title">Bridging <em>cultures</em> through wellness</h2>
+        <div class="divider"></div>
+        <p>Hi, I am May, the founder of Nuage Ginger.</p>
+        <p>As a mother, my family's health is my top priority. I have always been passionate about creating healthy foods — previously developing wellness products, like salads featuring fresh Finnish ingredients, which locals quickly came to love.</p>
+        <p>Living in Finland, I noticed how deeply Nordic people care about their well-being. I asked myself: <em>Is there anything I can make to bridge my heritage with this lifestyle?</em></p>
+        <p>That is when I thought of Ginger. Mứt gừng (crystallized ginger) is a traditional Vietnamese snack that lasts a long time. It perfectly suits the cold Finnish winters, naturally heating the body from the inside out while providing incredible health benefits.</p>
+        <div class="about-signature">May</div>
+      </div>
+      <div class="about-image-placeholder reveal">
+        <img src="may-profile.jpg" alt="May, Founder of Nuage Ginger" class="about-image">
       </div>
     </div>
   </div>
@@ -1114,10 +1331,23 @@
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2025 <span>Nuage Ginger</span> · Helsinki, Finland · Premium Crystallized Ginger</p>
+  <p>© 2026 <span>Nuage Ginger</span> · Helsinki, Finland · Premium Crystallized Ginger</p>
 </footer>
 
 <script>
+  // Routing Logic for Single-Page Application navigation
+  function handleRoute() {
+    const hash = window.location.hash || '#home';
+    if (hash === '#about') {
+      document.body.className = 'page-about';
+      window.scrollTo(0,0);
+    } else {
+      document.body.className = 'page-home';
+    }
+  }
+  window.addEventListener('hashchange', handleRoute);
+  handleRoute(); // Run on initial load
+
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
