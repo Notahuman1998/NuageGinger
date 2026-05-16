@@ -343,15 +343,24 @@
   /* ── PRODUCTS ── */
   #products { background: var(--ivory); }
 
-  .products-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+  .products-carousel {
+    display: flex;
     gap: 2rem;
     margin-top: 3.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 2rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .products-carousel::-webkit-scrollbar {
+    display: none;
   }
 
   .product-card {
-    /* Changed from 4px to 24px to make the boxes rounder */
+    flex: 0 0 calc(50% - 1rem); /* 2 items visible on desktop */
+    scroll-snap-align: start;
     border-radius: 24px;
     padding: 2.8rem;
     position: relative;
@@ -439,7 +448,7 @@
     margin-top: 3rem;
     padding: 2rem 2.5rem;
     background: var(--cream);
-    border-radius: 24px; /* Matched the new roundness */
+    border-radius: 24px;
     border: 1px solid var(--border);
     display: flex;
     align-items: center;
@@ -482,13 +491,23 @@
     margin-bottom: 4rem;
   }
 
-  .benefits-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+  .benefits-carousel {
+    display: flex;
     gap: 1.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 2rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .benefits-carousel::-webkit-scrollbar {
+    display: none;
   }
 
   .benefit-item {
+    flex: 0 0 calc(33.333% - 1rem); /* 3 items visible on desktop */
+    scroll-snap-align: start;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(232, 196, 154, 0.1);
     border-radius: 16px;
@@ -611,7 +630,7 @@
   .audience-card {
     background: var(--ivory);
     border: 1px solid var(--border);
-    border-radius: 16px; /* Rounder corners */
+    border-radius: 16px;
     padding: 2rem 2.2rem;
     display: flex;
     gap: 1.5rem;
@@ -673,7 +692,7 @@
   .market-stat {
     background: var(--ginger-pale);
     border: 1px solid rgba(200, 121, 65, 0.18);
-    border-radius: 16px; /* Rounder corners */
+    border-radius: 16px;
     padding: 1.4rem 1.5rem;
   }
 
@@ -913,8 +932,8 @@
   @media (max-width: 768px) {
     nav { padding: 1.2rem 1.5rem; }
     .nav-links { display: none; }
-    .story-grid, .products-grid, .investor-layout, .audience-grid { grid-template-columns: 1fr; }
-    .benefits-grid { grid-template-columns: 1fr; }
+    .story-grid, .investor-layout, .audience-grid { grid-template-columns: 1fr; }
+    .product-card, .benefit-item { flex: 0 0 85vw; }
     .story-visual { height: 280px; margin-bottom: 1rem; }
     .market-stats { grid-template-columns: 1fr 1fr; }
   }
@@ -922,7 +941,6 @@
 </head>
 <body class="page-home">
 
-<!-- NAV -->
 <nav>
   <a href="#home" class="nav-logo">Nuage <span>Ginger</span></a>
   <ul class="nav-links">
@@ -934,23 +952,19 @@
   </ul>
 </nav>
 
-<!-- HERO -->
 <section id="hero">
   <div class="hero-bg"></div>
   <div class="hero-content">
     <div class="hero-badge">Launching in Finland · 2026</div>
 
-    <!-- Logo Mark SVG -->
     <div class="hero-logo-mark">
       <svg viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg" fill="none">
         <circle cx="45" cy="45" r="43" stroke="#C87941" stroke-width="1"/>
         <circle cx="45" cy="45" r="37" stroke="#C87941" stroke-width="0.5" stroke-dasharray="3 4"/>
-        <!-- Ginger root stylized -->
         <ellipse cx="45" cy="48" rx="11" ry="7" fill="#C87941" opacity="0.9"/>
         <ellipse cx="32" cy="44" rx="7" ry="5" fill="#C87941" opacity="0.75" transform="rotate(-20 32 44)"/>
         <ellipse cx="58" cy="44" rx="7" ry="5" fill="#C87941" opacity="0.75" transform="rotate(20 58 44)"/>
         <ellipse cx="45" cy="36" rx="5" ry="7" fill="#C87941" opacity="0.6" transform="rotate(5 45 36)"/>
-        <!-- Cloud wisps top -->
         <ellipse cx="38" cy="26" rx="9" ry="5" fill="#C87941" opacity="0.18"/>
         <ellipse cx="50" cy="24" rx="12" ry="6" fill="#C87941" opacity="0.22"/>
         <ellipse cx="60" cy="27" rx="8" ry="4.5" fill="#C87941" opacity="0.15"/>
@@ -970,7 +984,6 @@
   </div>
 </section>
 
-<!-- STORY -->
 <section id="story">
   <div class="container">
     <div class="story-grid">
@@ -1015,14 +1028,12 @@
   </div>
 </section>
 
-<!-- WOW BREAK -->
 <section id="wow-break" class="wow-break">
   <div class="wow-content reveal">
     <h2 class="wow-text">Warming the Nordic winter.<br><em>One root at a time.</em></h2>
   </div>
 </section>
 
-<!-- PRODUCTS -->
 <section id="products">
   <div class="container">
     <div class="reveal">
@@ -1032,7 +1043,7 @@
       <p style="color: var(--text-muted); max-width: 520px;">Handcrafted crystallized ginger in two distinct recipes — one for the classic palate, one for the health-forward lifestyle.</p>
     </div>
 
-    <div class="products-grid">
+    <div class="products-carousel">
       <div class="product-card classic reveal">
         <div class="product-card-label">Classic</div>
         <h3 class="product-name">Nuage Ginger<br>Original</h3>
@@ -1075,7 +1086,6 @@
   </div>
 </section>
 
-<!-- BENEFITS -->
 <section id="benefits">
   <div class="container">
     <div class="reveal">
@@ -1085,7 +1095,7 @@
       <p class="benefits-intro">Ginger has been used in traditional medicine across Asia for over 5,000 years. Modern science continues to validate what generations already knew.</p>
     </div>
 
-    <div class="benefits-grid reveal">
+    <div class="benefits-carousel reveal">
       <div class="benefit-item" onclick="this.classList.toggle('active')">
         <div class="benefit-content">
           <div class="benefit-num">01</div>
@@ -1156,7 +1166,6 @@
   </div>
 </section>
 
-<!-- AUDIENCE -->
 <section id="audience">
   <div class="container">
     <div class="reveal">
@@ -1218,7 +1227,6 @@
   </div>
 </section>
 
-<!-- INVESTORS -->
 <section id="investors">
   <div class="container">
     <div class="investor-layout">
@@ -1291,7 +1299,6 @@
   </div>
 </section>
 
-<!-- ABOUT FOUNDER -->
 <section id="about-founder">
   <div class="container">
     <div class="about-grid">
@@ -1312,7 +1319,6 @@
   </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact">
   <div class="container">
     <span class="section-label">Get In Touch</span>
@@ -1329,7 +1335,6 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <p>© 2026 <span>Nuage Ginger</span> · Helsinki, Finland · Premium Crystallized Ginger</p>
 </footer>
@@ -1347,6 +1352,16 @@
   }
   window.addEventListener('hashchange', handleRoute);
   handleRoute(); // Run on initial load
+
+  // Smooth scroll to top when clicking home links if already on the home page
+  document.querySelectorAll('a[href="#home"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      if (window.location.hash === '#home' || window.location.hash === '') {
+        e.preventDefault(); // Stop default jump
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+  });
 
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
