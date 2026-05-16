@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nuage Ginger — Premium Crystallized Ginger, Finland</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ivory: #FAF6EF;
+    --cream: #F2EBD9;
+    --ginger: #C87941;
+    --ginger-light: #E8C49A;
+    --ginger-pale: #F5E8D0;
+    --sage: #6B8F71;
+    --sage-light: #C9DCC8;
+    --sage-pale: #EAF0E8;
+    --brown-deep: #3B2410;
+    --brown-mid: #6B4226;
+    --text: #2E1F0F;
+    --text-muted: #7A6347;
+    --border: rgba(139, 90, 43, 0.15);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--ivory);
+    color: var(--text);
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.4rem 4rem;
+    background: rgba(250, 246, 239, 0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    transition: padding 0.3s;
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--brown-deep);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--ginger); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--ginger); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8rem 2rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 70% 30%, rgba(200, 121, 65, 0.10) 0%, transparent 65%),
+      radial-gradient(ellipse 50% 60% at 20% 80%, rgba(107, 143, 113, 0.08) 0%, transparent 60%),
+      var(--ivory);
+    z-index: 0;
+  }
+
+  .hero-content { position: relative; z-index: 1; max-width: 780px; }
+
+  .hero-badge {
+    display: inline-block;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ginger);
+    background: var(--ginger-pale);
+    padding: 0.45rem 1.1rem;
+    border-radius: 2rem;
+    margin-bottom: 2.2rem;
+    border: 1px solid rgba(200, 121, 65, 0.25);
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-logo-mark {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.2rem, 8vw, 5.6rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--brown-deep);
+    margin-bottom: 1.6rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--ginger);
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    max-width: 480px;
+    margin: 0 auto 3rem;
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s 1s forwards;
+  }
+
+  .btn-primary {
+    background: var(--ginger);
+    color: #fff;
+    padding: 0.85rem 2.2rem;
+    border-radius: 2rem;
+    text-decoration: none;
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .btn-primary:hover { background: var(--brown-mid); transform: translateY(-2px); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--brown-mid);
+    padding: 0.85rem 2.2rem;
+    border-radius: 2rem;
+    text-decoration: none;
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: 1px solid var(--ginger-light);
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .btn-secondary:hover { background: var(--ginger-pale); transform: translateY(-2px); }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 1.4s forwards;
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, var(--ginger), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 7rem 2rem; }
+
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ginger);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--brown-deep);
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title em { font-style: italic; color: var(--ginger); }
+
+  .divider {
+    width: 50px;
+    height: 1.5px;
+    background: var(--ginger-light);
+    margin-bottom: 2rem;
+  }
+
+  /* ── STORY ── */
+  #story { background: var(--cream); }
+
+  .story-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .story-visual {
+    position: relative;
+    height: 420px;
+  }
+
+  .story-card-back {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    right: -10px;
+    bottom: -20px;
+    background: var(--ginger-pale);
+    border-radius: 4px;
+    border: 1px solid rgba(200, 121, 65, 0.2);
+  }
+
+  .story-card-main {
+    position: absolute;
+    inset: 0;
+    background: var(--ivory);
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem;
+    text-align: center;
+  }
+
+  .story-icon-wrap {
+    width: 80px;
+    height: 80px;
+    background: var(--ginger-pale);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .story-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-style: italic;
+    color: var(--brown-deep);
+    line-height: 1.3;
+    margin-bottom: 1rem;
+  }
+
+  .story-origin {
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .story-text p { color: var(--text-muted); margin-bottom: 1.2rem; font-size: 1rem; }
+
+  .stat-row {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .stat-item { }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.4rem;
+    font-weight: 500;
+    color: var(--ginger);
+    line-height: 1;
+  }
+  .stat-desc {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    margin-top: 0.3rem;
+  }
+
+  /* ── PRODUCTS ── */
+  #products { background: var(--ivory); }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 3.5rem;
+  }
+
+  .product-card {
+    border-radius: 4px;
+    padding: 2.8rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s;
+  }
+
+  .product-card:hover { transform: translateY(-6px); }
+
+  .product-card.classic {
+    background: var(--ginger-pale);
+    border: 1px solid rgba(200, 121, 65, 0.2);
+  }
+
+  .product-card.diet {
+    background: var(--sage-pale);
+    border: 1px solid rgba(107, 143, 113, 0.2);
+  }
+
+  .product-card-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .classic .product-card-label { color: var(--ginger); }
+  .diet .product-card-label { color: var(--sage); }
+
+  .product-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--brown-deep);
+    margin-bottom: 0.6rem;
+    line-height: 1.15;
+  }
+
+  .product-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 1.8rem;
+    line-height: 1.65;
+  }
+
+  .product-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .product-features li {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 0.88rem;
+    color: var(--brown-mid);
+  }
+
+  .check-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .classic .check-dot { background: var(--ginger); }
+  .diet .check-dot { background: var(--sage); }
+
+  .product-corner-deco {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    opacity: 0.12;
+  }
+
+  .classic .product-corner-deco { background: var(--ginger); }
+  .diet .product-corner-deco { background: var(--sage); }
+
+  .product-future {
+    margin-top: 3rem;
+    padding: 2rem 2.5rem;
+    background: var(--cream);
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .future-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--ginger-pale);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .future-text h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: var(--brown-deep);
+    margin-bottom: 0.3rem;
+  }
+
+  .future-text p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+  }
+
+  /* ── BENEFITS ── */
+  #benefits { background: var(--brown-deep); color: #FAF6EF; }
+
+  #benefits .section-title { color: var(--ginger-light); }
+  #benefits .section-label { color: var(--ginger-light); opacity: 0.7; }
+  #benefits .divider { background: rgba(232, 196, 154, 0.3); }
+
+  .benefits-intro {
+    color: rgba(250, 246, 239, 0.7);
+    max-width: 560px;
+    margin-bottom: 4rem;
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .benefit-item {
+    background: rgba(59, 36, 16, 0.7);
+    padding: 2.5rem 2rem;
+    transition: background 0.2s;
+  }
+
+  .benefit-item:hover { background: rgba(200, 121, 65, 0.12); }
+
+  .benefit-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: rgba(200, 121, 65, 0.35);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .benefit-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    color: var(--ginger-light);
+    margin-bottom: 0.7rem;
+    font-weight: 400;
+  }
+
+  .benefit-desc {
+    font-size: 0.88rem;
+    color: rgba(250, 246, 239, 0.6);
+    line-height: 1.7;
+  }
+
+  /* ── FOR WHOM ── */
+  #audience { background: var(--cream); }
+
+  .audience-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+  }
+
+  .audience-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2rem 2.2rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .audience-card:hover {
+    border-color: var(--ginger-light);
+    transform: translateY(-4px);
+  }
+
+  .audience-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--ginger-pale);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .audience-body h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    color: var(--brown-deep);
+    margin-bottom: 0.4rem;
+  }
+
+  .audience-body p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  /* ── INVESTOR ── */
+  #investors { background: var(--ivory); }
+
+  .investor-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .investor-text p {
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+
+  .market-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    margin-top: 2.5rem;
+  }
+
+  .market-stat {
+    background: var(--ginger-pale);
+    border: 1px solid rgba(200, 121, 65, 0.18);
+    border-radius: 4px;
+    padding: 1.4rem 1.5rem;
+  }
+
+  .market-stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    color: var(--ginger);
+    font-weight: 500;
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+
+  .market-stat-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  .roadmap {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .roadmap-item {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    position: relative;
+  }
+
+  .roadmap-item:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 19px;
+    top: 42px;
+    width: 1px;
+    height: calc(100% - 10px);
+    background: var(--border);
+  }
+
+  .roadmap-dot {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1.5px solid var(--ginger-light);
+    background: var(--ivory);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem;
+    color: var(--ginger);
+    font-weight: 500;
+  }
+
+  .roadmap-dot.active {
+    background: var(--ginger);
+    border-color: var(--ginger);
+    color: #fff;
+  }
+
+  .roadmap-body {
+    padding-bottom: 2.5rem;
+  }
+
+  .roadmap-year {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ginger);
+    margin-bottom: 0.3rem;
+  }
+
+  .roadmap-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: var(--brown-deep);
+    margin-bottom: 0.3rem;
+  }
+
+  .roadmap-desc {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--ginger-pale);
+    text-align: center;
+    padding: 7rem 2rem;
+  }
+
+  #contact .section-label { display: block; margin-bottom: 1rem; }
+  #contact .section-title { margin-bottom: 1rem; }
+  #contact .divider { margin: 0 auto 1.5rem; }
+
+  .contact-sub {
+    color: var(--text-muted);
+    max-width: 420px;
+    margin: 0 auto 2.5rem;
+    font-size: 1rem;
+  }
+
+  .contact-email {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 2rem;
+    padding: 1rem 2rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    color: var(--brown-deep);
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .contact-email:hover {
+    background: var(--ginger);
+    color: #fff;
+    transform: translateY(-3px);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--brown-deep);
+    color: rgba(250, 246, 239, 0.45);
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+  }
+
+  footer span { color: var(--ginger-light); opacity: 0.6; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.15); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { display: none; }
+    .story-grid, .products-grid, .investor-layout, .audience-grid { grid-template-columns: 1fr; }
+    .benefits-grid { grid-template-columns: 1fr; }
+    .story-visual { height: 280px; margin-bottom: 1rem; }
+    .market-stats { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">Nuage <span>Ginger</span></a>
+  <ul class="nav-links">
+    <li><a href="#story">Story</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#benefits">Benefits</a></li>
+    <li><a href="#investors">Investors</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Launching in Finland · 2025</div>
+
+    <!-- Logo Mark SVG -->
+    <div class="hero-logo-mark">
+      <svg viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <circle cx="45" cy="45" r="43" stroke="#C87941" stroke-width="1"/>
+        <circle cx="45" cy="45" r="37" stroke="#C87941" stroke-width="0.5" stroke-dasharray="3 4"/>
+        <!-- Ginger root stylized -->
+        <ellipse cx="45" cy="48" rx="11" ry="7" fill="#C87941" opacity="0.9"/>
+        <ellipse cx="32" cy="44" rx="7" ry="5" fill="#C87941" opacity="0.75" transform="rotate(-20 32 44)"/>
+        <ellipse cx="58" cy="44" rx="7" ry="5" fill="#C87941" opacity="0.75" transform="rotate(20 58 44)"/>
+        <ellipse cx="45" cy="36" rx="5" ry="7" fill="#C87941" opacity="0.6" transform="rotate(5 45 36)"/>
+        <!-- Cloud wisps top -->
+        <ellipse cx="38" cy="26" rx="9" ry="5" fill="#C87941" opacity="0.18"/>
+        <ellipse cx="50" cy="24" rx="12" ry="6" fill="#C87941" opacity="0.22"/>
+        <ellipse cx="60" cy="27" rx="8" ry="4.5" fill="#C87941" opacity="0.15"/>
+      </svg>
+    </div>
+
+    <h1 class="hero-title">The warmth of <em>ginger,</em><br>elevated.</h1>
+    <p class="hero-sub">Premium crystallized ginger, crafted for the health-conscious Nordic palate. Rooted in Vietnamese tradition, refined for Finland.</p>
+    <div class="hero-ctas">
+      <a href="#products" class="btn-primary">Discover Our Products</a>
+      <a href="#investors" class="btn-secondary">For Investors</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section id="story">
+  <div class="container">
+    <div class="story-grid">
+      <div class="story-visual">
+        <div class="story-card-back"></div>
+        <div class="story-card-main">
+          <div class="story-icon-wrap">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+              <path d="M20 6 C14 6 8 11 8 18 C8 25 13 31 20 34 C27 31 32 25 32 18 C32 11 26 6 20 6Z" fill="#C87941" opacity="0.8"/>
+              <path d="M20 10 C16 13 14 17 15 22 C17 20 20 18 20 18 C20 18 23 20 25 22 C26 17 24 13 20 10Z" fill="#FAF6EF" opacity="0.6"/>
+            </svg>
+          </div>
+          <p class="story-tagline">"Mứt Gừng — the taste of care, now in every Nordic home."</p>
+          <p class="story-origin">Vietnam &nbsp;·&nbsp; Finland</p>
+        </div>
+      </div>
+
+      <div class="story-text reveal">
+        <p class="section-label">Our Story</p>
+        <h2 class="section-title">Where tradition meets <em>Nordic wellness</em></h2>
+        <div class="divider"></div>
+        <p>Nuage Ginger was born from a simple belief: that one of Asia's most beloved wellness foods deserves a place on the modern Nordic table.</p>
+        <p>Crystallized ginger — known as <em>mứt gừng</em> in Vietnamese culture — has been cherished for generations as a remedy, a treat, and a symbol of care. We bring this tradition to Finland with premium ingredients, clean production standards, and packaging worthy of a gift.</p>
+        <p>The name <em>Nuage</em> — French for "cloud" — captures our vision: something light, refined, and drifting effortlessly between cultures.</p>
+
+        <div class="stat-row">
+          <div class="stat-item">
+            <div class="stat-num">2</div>
+            <div class="stat-desc">Variants at launch</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">100%</div>
+            <div class="stat-desc">Natural ingredients</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">FI</div>
+            <div class="stat-desc">Initial market</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Our Products</p>
+      <h2 class="section-title">Two expressions of <em>pure ginger</em></h2>
+      <div class="divider"></div>
+      <p style="color: var(--text-muted); max-width: 520px;">Handcrafted crystallized ginger in two distinct recipes — one for the classic palate, one for the health-forward lifestyle.</p>
+    </div>
+
+    <div class="products-grid">
+      <div class="product-card classic reveal">
+        <div class="product-card-label">Classic</div>
+        <h3 class="product-name">Nuage Ginger<br>Original</h3>
+        <p class="product-desc">Our signature crystallized ginger, coated in fine cane sugar. A perfect balance of warmth, spice, and gentle sweetness — the taste our grandmothers knew.</p>
+        <ul class="product-features">
+          <li><span class="check-dot"></span>Real ginger root, hand-selected</li>
+          <li><span class="check-dot"></span>Fine cane sugar coating</li>
+          <li><span class="check-dot"></span>No artificial additives</li>
+          <li><span class="check-dot"></span>Premium gift packaging</li>
+        </ul>
+        <div class="product-corner-deco"></div>
+      </div>
+
+      <div class="product-card diet reveal">
+        <div class="product-card-label">Wellness</div>
+        <h3 class="product-name">Nuage Ginger<br>Light</h3>
+        <p class="product-desc">The same pure ginger experience, crafted with a natural diet sugar substitute. All the benefits, a fraction of the calories — designed for the mindful consumer.</p>
+        <ul class="product-features">
+          <li><span class="check-dot"></span>Real ginger root, hand-selected</li>
+          <li><span class="check-dot"></span>Natural diet sugar substitute</li>
+          <li><span class="check-dot"></span>Lower calorie, same warmth</li>
+          <li><span class="check-dot"></span>Premium gift packaging</li>
+        </ul>
+        <div class="product-corner-deco"></div>
+      </div>
+    </div>
+
+    <div class="product-future reveal">
+      <div class="future-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="9" stroke="#C87941" stroke-width="1.5"/>
+          <path d="M12 8v4l3 3" stroke="#C87941" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="future-text">
+        <h4>More Variants Coming Soon</h4>
+        <p>We are actively developing new flavours and formats — including spiced blends, gifting sets, and functional wellness formats — to be launched in future phases.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section id="benefits">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Why Ginger</p>
+      <h2 class="section-title">A root with <em>remarkable</em> history</h2>
+      <div class="divider"></div>
+      <p class="benefits-intro">Ginger has been used in traditional medicine across Asia for over 5,000 years. Modern science continues to validate what generations already knew.</p>
+    </div>
+
+    <div class="benefits-grid reveal">
+      <div class="benefit-item">
+        <div class="benefit-num">01</div>
+        <h4 class="benefit-title">Digestive Wellness</h4>
+        <p class="benefit-desc">Ginger is widely recognised for supporting digestive comfort, reducing bloating, and easing nausea — including during pregnancy and travel.</p>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-num">02</div>
+        <h4 class="benefit-title">Anti-Inflammatory</h4>
+        <p class="benefit-desc">Gingerols and shogaols — the active compounds in ginger — have demonstrated natural anti-inflammatory properties, supporting joint and muscle health.</p>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-num">03</div>
+        <h4 class="benefit-title">Immune Support</h4>
+        <p class="benefit-desc">Rich in antioxidants, ginger is a traditional winter wellness staple — especially valued in Nordic climates where immunity support is a seasonal priority.</p>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-num">04</div>
+        <h4 class="benefit-title">Natural Energy</h4>
+        <p class="benefit-desc">A small piece of crystallized ginger provides a clean, natural energy lift — a smart snack alternative to sugar-laden office treats.</p>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-num">05</div>
+        <h4 class="benefit-title">Premium Gifting</h4>
+        <p class="benefit-desc">Beautifully packaged, Nuage Ginger is designed to be gifted — for colleagues, loved ones, or as a thoughtful corporate wellness gesture.</p>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-num">06</div>
+        <h4 class="benefit-title">Mindful Snacking</h4>
+        <p class="benefit-desc">Each piece is portion-controlled, intentional, and satisfying — a mindful alternative for health-conscious consumers replacing processed snacks.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIENCE -->
+<section id="audience">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Who It's For</p>
+      <h2 class="section-title">Made for those who <em>choose well</em></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="audience-grid">
+      <div class="audience-card reveal">
+        <div class="audience-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <path d="M11 3C11 3 5 7 5 12a6 6 0 0012 0C17 7 11 3 11 3Z" stroke="#C87941" stroke-width="1.5" fill="none"/>
+            <path d="M11 9v5M9 13l2 2 2-2" stroke="#C87941" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="audience-body">
+          <h4>Health-Conscious Consumers</h4>
+          <p>People actively seeking natural, functional foods that fit a balanced lifestyle — those who read labels and choose quality over convenience.</p>
+        </div>
+      </div>
+      <div class="audience-card reveal">
+        <div class="audience-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <rect x="3" y="7" width="16" height="11" rx="2" stroke="#C87941" stroke-width="1.5"/>
+            <path d="M7 7V5a4 4 0 018 0v2" stroke="#C87941" stroke-width="1.5"/>
+            <circle cx="11" cy="12" r="1.5" fill="#C87941"/>
+          </svg>
+        </div>
+        <div class="audience-body">
+          <h4>Office Workers &amp; Corporate Gifting</h4>
+          <p>Busy professionals seeking a smarter desk snack, and companies looking for a premium, wellness-focused corporate gift that stands out.</p>
+        </div>
+      </div>
+      <div class="audience-card reveal">
+        <div class="audience-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <path d="M11 4a7 7 0 100 14A7 7 0 0011 4Z" stroke="#C87941" stroke-width="1.5"/>
+            <path d="M11 8v3l2.5 2.5" stroke="#C87941" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="audience-body">
+          <h4>Wellness-Oriented Shoppers</h4>
+          <p>Customers browsing premium food halls, organic grocers, and specialty wellness stores — people for whom quality and origin story matter.</p>
+        </div>
+      </div>
+      <div class="audience-card reveal">
+        <div class="audience-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <path d="M4 17l4-4 4 4 6-8" stroke="#C87941" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="17" cy="5" r="2" stroke="#C87941" stroke-width="1.3"/>
+          </svg>
+        </div>
+        <div class="audience-body">
+          <h4>Diet &amp; Low-Sugar Seekers</h4>
+          <p>Consumers managing sugar intake — whether for weight, diabetes awareness, or general lifestyle — who still crave a natural, satisfying treat.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INVESTORS -->
+<section id="investors">
+  <div class="container">
+    <div class="investor-layout">
+      <div class="investor-text reveal">
+        <p class="section-label">For Investors</p>
+        <h2 class="section-title">A premium niche in a <em>growing</em> market</h2>
+        <div class="divider"></div>
+        <p>The functional food and premium snack market in the Nordics is expanding rapidly. Finnish consumers are among Europe's most health-literate, with strong purchasing power and an appetite for authentic, ethically sourced products.</p>
+        <p>Nuage Ginger enters this space as the first premium, Asian-origin crystallized ginger brand positioned specifically for the Finnish market — combining a compelling heritage story with clear functional benefits.</p>
+        <p>We are currently seeking early-stage partners and investors to support our launch phase, supply chain development, and retail distribution strategy.</p>
+
+        <div class="market-stats">
+          <div class="market-stat">
+            <div class="market-stat-num">€4.2B</div>
+            <div class="market-stat-label">Nordic functional food market size</div>
+          </div>
+          <div class="market-stat">
+            <div class="market-stat-num">12%</div>
+            <div class="market-stat-label">Annual growth in premium snacks segment</div>
+          </div>
+          <div class="market-stat">
+            <div class="market-stat-num">5.5M</div>
+            <div class="market-stat-label">Finnish consumers, highly health-literate</div>
+          </div>
+          <div class="market-stat">
+            <div class="market-stat-num">2026</div>
+            <div class="market-stat-label">Target for Nordic expansion beyond Finland</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="roadmap reveal">
+        <p class="section-label">Roadmap</p>
+        <br>
+        <div class="roadmap-item">
+          <div class="roadmap-dot active">1</div>
+          <div class="roadmap-body">
+            <p class="roadmap-year">2025 — Now</p>
+            <p class="roadmap-title">Finland Launch</p>
+            <p class="roadmap-desc">Launch Original &amp; Light variants. Establish premium retail and online presence in Finland.</p>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-dot">2</div>
+          <div class="roadmap-body">
+            <p class="roadmap-year">2025–2026</p>
+            <p class="roadmap-title">Product Line Expansion</p>
+            <p class="roadmap-desc">Introduce new flavour variants, seasonal gifting editions, and corporate wellness formats.</p>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-dot">3</div>
+          <div class="roadmap-body">
+            <p class="roadmap-year">2026</p>
+            <p class="roadmap-title">Nordic Expansion</p>
+            <p class="roadmap-desc">Enter Sweden, Norway, and Denmark markets, leveraging Finland launch learnings and brand equity.</p>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-dot">4</div>
+          <div class="roadmap-body">
+            <p class="roadmap-year">2027+</p>
+            <p class="roadmap-title">European Premium</p>
+            <p class="roadmap-desc">Expand into broader European premium health food channels and explore B2B wellness partnerships.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <span class="section-label">Get In Touch</span>
+    <h2 class="section-title">Let's build something <em>meaningful</em></h2>
+    <div class="divider"></div>
+    <p class="contact-sub">Whether you are an investor, a retail partner, or simply curious — we would love to hear from you.</p>
+    <a href="mailto:nuageginger@gmail.com" class="contact-email">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <rect x="2" y="4" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.3"/>
+        <path d="M2 7l8 5 8-5" stroke="currentColor" stroke-width="1.3"/>
+      </svg>
+      nuageginger@gmail.com
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <span>Nuage Ginger</span> · Helsinki, Finland · Premium Crystallized Ginger</p>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
