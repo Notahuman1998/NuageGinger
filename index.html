@@ -157,7 +157,7 @@
 
   .hero-ctas {
     display: flex;
-    gap: 1rem;
+    gap: 1.2rem;
     justify-content: center;
     flex-wrap: wrap;
     opacity: 0;
@@ -167,31 +167,42 @@
   .btn-primary {
     background: var(--ginger);
     color: #fff;
-    padding: 0.85rem 2.2rem;
+    padding: 1rem 2.4rem;
     border-radius: 2rem;
     text-decoration: none;
-    font-size: 0.82rem;
+    font-size: 0.85rem;
+    font-weight: 500;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    transition: background 0.2s, transform 0.2s;
+    box-shadow: 0 8px 24px rgba(200, 121, 65, 0.25);
+    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
   }
 
-  .btn-primary:hover { background: var(--brown-mid); transform: translateY(-2px); }
+  .btn-primary:hover { 
+    background: var(--brown-mid); 
+    transform: translateY(-3px); 
+    box-shadow: 0 12px 28px rgba(200, 121, 65, 0.35);
+  }
 
   .btn-secondary {
     background: transparent;
     color: var(--brown-mid);
-    padding: 0.85rem 2.2rem;
+    padding: 1rem 2.4rem;
     border-radius: 2rem;
     text-decoration: none;
-    font-size: 0.82rem;
+    font-size: 0.85rem;
+    font-weight: 400;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    border: 1px solid var(--ginger-light);
-    transition: background 0.2s, transform 0.2s;
+    border: 1px solid rgba(107, 66, 38, 0.2);
+    transition: background 0.3s, transform 0.3s, border-color 0.3s;
   }
 
-  .btn-secondary:hover { background: var(--ginger-pale); transform: translateY(-2px); }
+  .btn-secondary:hover { 
+    background: var(--ginger-pale); 
+    border-color: var(--ginger-light);
+    transform: translateY(-3px); 
+  }
 
   .hero-scroll {
     position: absolute;
@@ -217,7 +228,7 @@
     animation: scrollPulse 2s ease-in-out infinite;
   }
 
-  /* ── SECTIONS ── */
+  /* ── SECTIONS & TYPOGRAPHY ── */
   section { padding: 7rem 2rem; }
 
   .container { max-width: 1100px; margin: 0 auto; }
@@ -246,6 +257,27 @@
     height: 1.5px;
     background: var(--ginger-light);
     margin-bottom: 2rem;
+  }
+
+  /* Swipe Indicator (Mobile Only) */
+  .swipe-indicator {
+    display: none;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ginger);
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .swipe-indicator::before, .swipe-indicator::after {
+    content: '';
+    display: block;
+    height: 1px;
+    width: 20px;
+    background: var(--ginger-light);
   }
 
   /* ── STORY ── */
@@ -346,7 +378,7 @@
   .products-carousel {
     display: flex;
     gap: 2rem;
-    margin-top: 3.5rem;
+    margin-top: 2.5rem;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     padding-bottom: 2rem;
@@ -410,7 +442,7 @@
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
+    gap: 0.8rem;
   }
 
   .product-features li {
@@ -491,23 +523,14 @@
     margin-bottom: 4rem;
   }
 
-  .benefits-carousel {
-    display: flex;
+  .benefits-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
     padding-bottom: 2rem;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-
-  .benefits-carousel::-webkit-scrollbar {
-    display: none;
   }
 
   .benefit-item {
-    flex: 0 0 calc(33.333% - 1rem); /* 3 items visible on desktop */
-    scroll-snap-align: start;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(232, 196, 154, 0.1);
     border-radius: 16px;
@@ -933,9 +956,24 @@
     nav { padding: 1.2rem 1.5rem; }
     .nav-links { display: none; }
     .story-grid, .investor-layout, .audience-grid { grid-template-columns: 1fr; }
-    .product-card, .benefit-item { flex: 0 0 85vw; }
+    .product-card { flex: 0 0 85vw; }
     .story-visual { height: 280px; margin-bottom: 1rem; }
     .market-stats { grid-template-columns: 1fr 1fr; }
+    
+    /* Transform benefits grid to carousel on mobile */
+    .benefits-wrapper {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 2rem;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .benefits-wrapper::-webkit-scrollbar { display: none; }
+    .benefit-item { flex: 0 0 85vw; scroll-snap-align: center; }
+
+    /* Show swipe indicators only on mobile */
+    .swipe-indicator { display: flex; justify-content: center; }
   }
 </style>
 </head>
@@ -1040,7 +1078,9 @@
       <p class="section-label">Our Products</p>
       <h2 class="section-title">Two expressions of <em>pure ginger</em></h2>
       <div class="divider"></div>
-      <p style="color: var(--text-muted); max-width: 520px;">Handcrafted crystallized ginger in two distinct recipes — one for the classic palate, one for the health-forward lifestyle.</p>
+      <p style="color: var(--text-muted); max-width: 520px; margin-bottom: 1.5rem;">Handcrafted crystallized ginger in two distinct recipes — one for the classic palate, one for the health-forward lifestyle.</p>
+      
+      <div class="swipe-indicator">Swipe to explore</div>
     </div>
 
     <div class="products-carousel">
@@ -1093,9 +1133,11 @@
       <h2 class="section-title">A root with <em>remarkable</em> history</h2>
       <div class="divider"></div>
       <p class="benefits-intro">Ginger has been used in traditional medicine across Asia for over 5,000 years. Modern science continues to validate what generations already knew.</p>
+      
+      <div class="swipe-indicator">Swipe to explore</div>
     </div>
 
-    <div class="benefits-carousel reveal">
+    <div class="benefits-wrapper reveal">
       <div class="benefit-item" onclick="this.classList.toggle('active')">
         <div class="benefit-content">
           <div class="benefit-num">01</div>
