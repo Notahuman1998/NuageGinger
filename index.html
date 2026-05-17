@@ -6,7 +6,8 @@
 <title>Nuage Ginger — Premium Crystallized Ginger, Finland</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<!-- Updated Fonts: Restoring Cormorant Garamond for headings, Playfair Display for Vietnamese support -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -35,6 +36,11 @@
     font-weight: 300;
     line-height: 1.7;
     overflow-x: hidden;
+  }
+
+  /* Specific font for Vietnamese characters */
+  .font-vn {
+    font-family: 'Playfair Display', serif;
   }
 
   /* ── NAV ── */
@@ -79,6 +85,24 @@
   }
 
   .nav-links a:hover { color: var(--ginger); }
+
+  /* Mobile Hamburger Button */
+  .mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 101; /* Stays above the sliding menu */
+  }
+
+  .mobile-menu-btn span {
+    width: 25px;
+    height: 2px;
+    background: var(--brown-deep);
+    transition: all 0.3s ease;
+  }
 
   /* ── HERO ── */
   #hero {
@@ -357,7 +381,6 @@
     border-top: 1px solid var(--border);
   }
 
-  .stat-item { }
   .stat-num {
     font-family: 'Cormorant Garamond', serif;
     font-size: 2.4rem;
@@ -369,7 +392,7 @@
     font-size: 0.78rem;
     color: var(--text-muted);
     letter-spacing: 0.05em;
-    margin-top: 0.3rem;
+    margin-top: 0.5rem;
   }
 
   /* ── PRODUCTS ── */
@@ -951,14 +974,38 @@
   .page-about #audience,
   .page-about #investors { display: none; }
 
-  /* ── MOBILE ── */
+  /* ── MOBILE RESPONSIVENESS ── */
   @media (max-width: 768px) {
     nav { padding: 1.2rem 1.5rem; }
-    .nav-links { display: none; }
+    
+    /* Mobile Sliding Menu */
+    .mobile-menu-btn { display: flex; }
+    .nav-links {
+      position: fixed;
+      top: 0; right: -100%;
+      width: 75vw; height: 100vh;
+      background: var(--ivory);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: 0.4s ease;
+      box-shadow: -5px 0 15px rgba(0,0,0,0.05);
+      margin: 0;
+    }
+    .nav-links.active { right: 0; }
+    
+    /* Hamburger Icon Animation */
+    .mobile-menu-btn.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .mobile-menu-btn.active span:nth-child(2) { opacity: 0; }
+    .mobile-menu-btn.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    
     .story-grid, .investor-layout, .audience-grid { grid-template-columns: 1fr; }
     .product-card { flex: 0 0 85vw; }
     .story-visual { height: 280px; margin-bottom: 1rem; }
     .market-stats { grid-template-columns: 1fr 1fr; }
+    
+    /* Prevent hero CTA overlap on smaller phones by hiding scroll prompt */
+    .hero-scroll { display: none; }
     
     /* Transform benefits grid to carousel on mobile */
     .benefits-wrapper {
@@ -975,6 +1022,11 @@
     /* Show swipe indicators only on mobile */
     .swipe-indicator { display: flex; justify-content: center; }
   }
+
+  /* Extra safety check to prevent overlap on very short screens like horizontal phones */
+  @media (max-height: 700px) {
+    .hero-scroll { display: none; }
+  }
 </style>
 </head>
 <body class="page-home">
@@ -988,6 +1040,9 @@
     <li><a href="#investors">Investors</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <button class="mobile-menu-btn" aria-label="Toggle Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <section id="hero">
@@ -1034,7 +1089,7 @@
               <path d="M20 10 C16 13 14 17 15 22 C17 20 20 18 20 18 C20 18 23 20 25 22 C26 17 24 13 20 10Z" fill="#FAF6EF" opacity="0.6"/>
             </svg>
           </div>
-          <p class="story-tagline">"Mứt Gừng — the taste of care, now in every Nordic home."</p>
+          <p class="story-tagline">"<span class="font-vn">Mứt Gừng</span> — the taste of care, now in every Nordic home."</p>
           <p class="story-origin">Vietnam &nbsp;·&nbsp; Finland</p>
         </div>
       </div>
@@ -1044,7 +1099,7 @@
         <h2 class="section-title">Where tradition meets <em>Nordic wellness</em></h2>
         <div class="divider"></div>
         <p>Nuage Ginger was born from a simple belief: that one of Asia's most beloved wellness foods deserves a place on the modern Nordic table.</p>
-        <p>Crystallized ginger — known as <em>mứt gừng</em> in Vietnamese culture — has been cherished for generations as a remedy, a treat, and a symbol of care. We bring this tradition to Finland with premium ingredients, clean production standards, and packaging worthy of a gift.</p>
+        <p>Crystallized ginger — known as <em class="font-vn">mứt gừng</em> in Vietnamese culture — has been cherished for generations as a remedy, a treat, and a symbol of care. We bring this tradition to Finland with premium ingredients, clean production standards, and packaging worthy of a gift.</p>
         <p>The name <em>Nuage</em> — French for "cloud" — captures our vision: something light, refined, and drifting effortlessly between cultures.</p>
 
         <div class="stat-row">
@@ -1351,11 +1406,11 @@
         <p>Hi, I am May, the founder of Nuage Ginger.</p>
         <p>As a mother, my family's health is my top priority. I have always been passionate about creating healthy foods — previously developing wellness products, like salads featuring fresh Finnish ingredients, which locals quickly came to love.</p>
         <p>Living in Finland, I noticed how deeply Nordic people care about their well-being. I asked myself: <em>Is there anything I can make to bridge my heritage with this lifestyle?</em></p>
-        <p>That is when I thought of Ginger. Mứt gừng (crystallized ginger) is a traditional Vietnamese snack that lasts a long time. It perfectly suits the cold Finnish winters, naturally heating the body from the inside out while providing incredible health benefits.</p>
+        <p>That is when I thought of Ginger. <span class="font-vn">Mứt gừng</span> (crystallized ginger) is a traditional Vietnamese snack that lasts a long time. It perfectly suits the cold Finnish winters, naturally heating the body from the inside out while providing incredible health benefits.</p>
         <div class="about-signature">May</div>
       </div>
       <div class="about-image-placeholder reveal">
-        <img src="may-profile.PNG" alt="May, Founder of Nuage Ginger" class="about-image">
+        <img src="may-profile.png" alt="May, Founder of Nuage Ginger" class="about-image">
       </div>
     </div>
   </div>
@@ -1382,6 +1437,23 @@
 </footer>
 
 <script>
+  // Mobile Menu Logic
+  const mobileBtn = document.querySelector('.mobile-menu-btn');
+  const navLinks = document.querySelector('.nav-links');
+  
+  mobileBtn.addEventListener('click', () => {
+    mobileBtn.classList.toggle('active');
+    navLinks.classList.toggle('active');
+  });
+
+  // Close mobile menu when a link is clicked
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileBtn.classList.remove('active');
+      navLinks.classList.remove('active');
+    });
+  });
+
   // Routing Logic for Single-Page Application navigation
   function handleRoute() {
     const hash = window.location.hash || '#home';
@@ -1405,6 +1477,7 @@
     });
   });
 
+  // Reveal animations on scroll
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
